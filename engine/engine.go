@@ -7,24 +7,39 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
+// config is passed to the Run function in main.go
 type Config struct {
-	VirtualWidth, VirtualHeight int
-	WindowTitle                 string
+	//for implementing letterboxing (black bars) see:https://www.raylib.com/examples/core/loader.html?name=core_window_letterbox
+	// VirtualWidth, VirtualHeight int
+	WindowTitle string
+}
+
+// info to pass to scenes
+// eg. a camera, game map, or save file
+type Context struct {
+	SomeData any
+}
+
+// a scene must implement these methods
+type scene interface {
+	Load(Context)                        // called when this Scene is switched to
+	Update(Context) (unload bool)        // called every frame
+	Unload(Context) (nextSceneID string) // called after Update returns true
 }
 
 // map from string id to a Scene
 type Scenes map[string]scene
 
 func Run(scenes Scenes, cfg Config) error {
-	ActiveSceneId := "start" // look for a scene named start as entry
+	ActiveSceneId := "start" // look for a scene named start as entry-point
 	ActiveScene, ok := scenes[ActiveSceneId]
-	ctx := Context{}
+	ctx := Context{} // info to pass to scenes.
 	if !ok {
 		return errors.New(`Cannot start. There must be a scene with id "start" that is the entry-point`)
 	} else if ActiveScene == nil {
 		return errors.New("start scene cannot be nil")
 	}
-	// -----------------------------BEGIN------------------------------------
+	// --------------BEGIN--------------
 	rl.SetConfigFlags(rl.FlagWindowResizable)
 	rl.InitWindow(0, 0, cfg.WindowTitle)
 	rl.InitAudioDevice()
@@ -45,13 +60,12 @@ func Run(scenes Scenes, cfg Config) error {
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 		// -------UPDATE SCENE---------
-		quit := ActiveScene.Update(ctx)
+		var unloadActiveScene bool = ActiveScene.Update(ctx)
 		rl.EndDrawing()
-
-		if quit {
+		if unloadActiveScene {
 			// -------UNLOAD SCENE-------
-			nextSceneId := ActiveScene.Unload()
-			nextScene, ok := scenes[nextSceneId]
+			var nextSceneId string = ActiveScene.Unload(ctx) // unload returns nextSceneId
+			var nextScene, ok = scenes[nextSceneId]
 			// ------SWITCH SCENE------
 			if ok && nextScene != nil {
 				ActiveSceneId = nextSceneId
