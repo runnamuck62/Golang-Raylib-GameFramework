@@ -19,10 +19,10 @@ put your scenes inside of its own seperate package:
 `scenes/<scenename>` for example:
 ```
 scenes/
-├── cube
-│   └── cube.go // spinning cube
 ├── register.go // register your scenes in here
-└── start // start scene (loaded first)
+├── cube // cube scene package
+│   └── cube.go // spinning cube
+└── start // start scene package (loaded first)
     ├── start.go
     └── systems.go
 ```
