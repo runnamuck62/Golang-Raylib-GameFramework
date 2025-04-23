@@ -38,7 +38,7 @@ var Registered = engine.Scenes{
 ```
 
 
-engine.Scenes is just a map from string to engine.scene:
+engine.Scenes is just a map from a "Scene Id" (string) to engine.scene:
 ```go
 // a scene must implement the engine.scene interface
 type scene interface {
