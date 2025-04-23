@@ -90,15 +90,14 @@ type Context struct {
 }
 ```
 
-
-[`scenes/start/start.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/start/start.go)
-this is the main menu scene, press enter to select an option.
-Look here and read the code comments
-
-
-
 [`scenes/cube/cube.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/cube/cube.go)
 this scene features a spinning cube (wow!)
+
+[`scenes/start/start.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/start/start.go)
+this is the main menu scene that is loaded first, press enter to select an option.
+
+
+
 
 
 ### What next?
