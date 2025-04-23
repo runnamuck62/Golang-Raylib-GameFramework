@@ -85,7 +85,8 @@ The main.go file isn't important, you can only change the window title here.
 
 #### [`engine/engine.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/engine/engine.go)
 
-The `engine.Run` function initializes a window and centers it. Its only 100 lines.
+The [`engine.Run`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/engine/engine.go#L33)
+function initializes a window and centers it. Its only 100 lines.
 looking at the code comments is recommended. The engine.Context, which is supposed to be used by you to implement features is defined here.
 
 
