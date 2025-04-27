@@ -9,7 +9,7 @@ Featuring Seperate "Scenes" with their own state
 
 ### Getting started
 
-Just create a repository using this as the template. By default it includes a spinning cube demo. See below on how to run it.
+Just create a repository using this as the template. By default it includes a spinning cube demo. and a main menu. See below on how to run it.
 #### Running
 If you are on windows, you only need to place `raylib.dll` next to the `main.go` file. See [PureGo](https://github.com/gen2brain/raylib-go/?tab=readme-ov-file#purego-without-cgo-ie-cgo_enabled0) 
 
