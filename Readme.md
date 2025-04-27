@@ -19,8 +19,8 @@ See [raylib-go](https://github.com/gen2brain/raylib-go/) for instructions.
 
 once you have the dependencies, Try running it. `go run .`
 
-# Project Structure
 
+# Adding Scenes
 put your scenes inside of its own seperate package:
 `scenes/<scenename>` for example:
 ```
@@ -36,7 +36,6 @@ scenes/
     └── systems.go
 ```
 
-## Adding Scenes
 
 Scenes can be registered inside of [`scenes/register.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/register.go)
 ```go
