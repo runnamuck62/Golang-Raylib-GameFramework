@@ -32,11 +32,10 @@ type scene interface {
 ```
 
 put your scenes inside of its own seperate package:
-`scenes/<scenename>` for example:
+`scenes/<MyScenePackage>` for example:
 ```
 scenes/
-| // register your scenes in this file (more info later)
-├── RegisteredScenes.go
+├── RegisteredScenes.go // register your scenes in this file (more info later)
 | // cube scene package
 ├── cube 
 │   └── cube.go // spinning cube
