@@ -9,17 +9,23 @@ Featuring Seperate "Scenes" with their own state
 
 ### Getting started
 
-Just create a repository using this as the template.
+Just create a repository using this as the template.By default it includes a spinning cube demo. See below on how to run it.
+#### Running
+If you are on windows, you only need to place `raylib.dll` next to the `main.go` file. See [PureGo](https://github.com/gen2brain/raylib-go/?tab=readme-ov-file#purego-without-cgo-ie-cgo_enabled0) 
 
-this template includes a spinning cube demo. Try running it.
-See [raylib-go](https://github.com/gen2brain/raylib-go/) for instructions. If you are on windows, use the [PureGo](https://github.com/gen2brain/raylib-go/?tab=readme-ov-file#purego-without-cgo-ie-cgo_enabled0) method
 
+For linux and mac you will need some dependencies.
+See [raylib-go](https://github.com/gen2brain/raylib-go/) for instructions. 
+
+once you have the dependencies, Try running it. `go run .`
+
+# Project Structure
 
 put your scenes inside of its own seperate package:
 `scenes/<scenename>` for example:
 ```
 scenes/
-| // register your scenes in here
+| // register your scenes in this file (see below)
 ├── register.go 
 | // cube scene package
 ├── cube 
@@ -30,8 +36,9 @@ scenes/
     └── systems.go
 ```
 
+## Adding Scenes
 
-Scenes can be registered inside of `scenes/register.go`
+Scenes can be registered inside of [`scenes/register.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/register.go)
 ```go
 // register all your scenes in here
 var Registered = engine.Scenes{
@@ -41,7 +48,7 @@ var Registered = engine.Scenes{
 ```
 
 
-engine.Scenes is just a map from a "Scene Id" (string) to engine.scene:
+engine.Scenes is just a map from a "Scene Id" (string) to the engine.scene interface:
 ```go
 // a scene must implement the engine.scene interface
 type scene interface {
