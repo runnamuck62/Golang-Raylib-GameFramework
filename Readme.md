@@ -12,7 +12,7 @@ Featuring Seperate "Scenes" with their own state
 Just create a repository using this as the template.
 
 this template includes a spinning cube demo. Try running it.
-See [raylib-go](https://github.com/gen2brain/raylib-go/) for instructions.
+See [raylib-go](https://github.com/gen2brain/raylib-go/) for instructions. If you are on windows, use the [PureGo](https://github.com/gen2brain/raylib-go/?tab=readme-ov-file#purego-without-cgo-ie-cgo_enabled0) method
 
 
 put your scenes inside of its own seperate package:
