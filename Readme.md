@@ -9,7 +9,7 @@ Featuring Seperate "Scenes" with their own state
 
 ### Getting started
 
-Just create a repository using this as the template.By default it includes a spinning cube demo. See below on how to run it.
+Just create a repository using this as the template. By default it includes a spinning cube demo. See below on how to run it.
 #### Running
 If you are on windows, you only need to place `raylib.dll` next to the `main.go` file. See [PureGo](https://github.com/gen2brain/raylib-go/?tab=readme-ov-file#purego-without-cgo-ie-cgo_enabled0) 
 
@@ -17,10 +17,20 @@ If you are on windows, you only need to place `raylib.dll` next to the `main.go`
 For linux and mac you will need some dependencies.
 See [raylib-go](https://github.com/gen2brain/raylib-go/) for instructions. 
 
-once you have the dependencies, Try running it. `go run .`
+once you have the dependencies, run `go mod tidy` and then `go run .`
 
 
 # Adding Scenes
+A scene is just a struct that holds the data for your game, updates the logic and draws things to the screen.
+```go
+// a scene must implement the engine.scene interface
+type scene interface {
+	Load(Context)                        // called when this Scene is switched to
+	Update(Context) (unload bool)        // called every frame
+	Unload(Context) (nextSceneID string) // called after Update returns true. Switches to nextSceneID
+}
+```
+
 put your scenes inside of its own seperate package:
 `scenes/<scenename>` for example:
 ```
@@ -36,24 +46,12 @@ scenes/
     └── systems.go
 ```
 
-
-Scenes can be registered inside of [`scenes/register.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/register.go)
+Scenes must be registered inside of [`scenes/register.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/register.go) 
 ```go
 // register all your scenes in here
 var Registered = engine.Scenes{
 	"start": &start.Scene{},
 	"cube": &cube.Scene{},
-}
-```
-
-
-engine.Scenes is just a map from a "Scene Id" (string) to the engine.scene interface:
-```go
-// a scene must implement the engine.scene interface
-type scene interface {
-	Load(Context)                        // called when this Scene is switched to
-	Update(Context) (unload bool)        // called every frame
-	Unload(Context) (nextSceneID string) // called after Update returns true. Switches to nextSceneID
 }
 ```
 
@@ -75,7 +73,7 @@ func (scene *Scene) Update(ctx engine.Context) (unload bool) {
 }
 // called after Update returns true
 func (scene *Scene) Unload(ctx engine.Context) (nextSceneID string) {
-	return "someOtherSceneId" 
+	return "someOtherSceneId"  // the engine will switch to the scene that is registered with this id
 }
 ```
 By the way, engine.Context is supposed to be used by you to implement a feature. 
