@@ -1,6 +1,6 @@
 # Raylib Golang "GameFramework"
 
-A very basic setup for making games with raylib in 300 lines. You are expected
+A simple template for making games with raylib in 300 lines. You are expected
 to modify this codebase to suit your needs.
 
 
