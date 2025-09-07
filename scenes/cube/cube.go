@@ -19,12 +19,11 @@ func (scene *Scene) Load(ctx engine.Context) {
 	scene.cam = cam
 }
 func (scene *Scene) Update(ctx engine.Context) (unload bool) {
-	rl.UpdateCamera(&scene.cam,rl.CameraOrbital) // Orbit cam around target
+	rl.UpdateCamera(&scene.cam, rl.CameraOrbital) // Orbit cam around target
 	// DRAW CUBE
 	rl.BeginMode3D(scene.cam)
 	rl.DrawCube(rl.Vector3{}, 2, 2, 2, rl.Red)
 	rl.EndMode3D()
-
 	rl.DrawText("Holy moly!!", int32(rl.GetScreenWidth()/8), 100, 80, rl.White)
 	rl.DrawText("Press Enter to go back", int32(rl.GetScreenWidth()/8), 200, 30, rl.DarkGreen)
 	if rl.IsKeyPressed(rl.KeyEnter) {

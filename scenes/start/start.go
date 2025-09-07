@@ -37,6 +37,10 @@ func (scene *Scene) Update(ctx engine.Context) (unload bool) {
 // called when update returns true
 func (scene *Scene) Unload(ctx engine.Context) (nextSceneID string) {
 	if scene.menuItems[scene.selectedMenuItem] == "Exit" {
+		// exitting on web will just reload this scene
+		if ctx.IsWeb {
+			return "start"
+		}
 		os.Exit(0)
 	}
 	return "cube"

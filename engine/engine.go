@@ -3,6 +3,8 @@ package engine
 import (
 	"errors"
 	"fmt"
+	"io/fs"
+	"runtime"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -17,7 +19,9 @@ type Config struct {
 // info to pass to scenes
 // eg. a camera, game map, or save file
 type Context struct {
-	SomeData any
+	// Assets are files inside the assets folder
+	Assets fs.FS
+	IsWeb  bool
 }
 
 // a scene must implement these methods
@@ -30,10 +34,10 @@ type scene interface {
 // map from string id to a Scene
 type Scenes map[string]scene
 
-func Run(scenes Scenes, cfg Config) error {
+func Run(scenes Scenes, cfg Config, Assets fs.FS) error {
 	ActiveSceneId := "start" // look for a scene named start as entry-point
 	ActiveScene, ok := scenes[ActiveSceneId]
-	ctx := Context{} // info to pass to scenes.
+	ctx := Context{Assets: Assets, IsWeb: runtime.GOOS == "js"} // info to pass to scenes.
 	if !ok {
 		return errors.New(`Cannot start. There must be a scene with id "start" that is the entry-point`)
 	} else if ActiveScene == nil {
@@ -46,13 +50,15 @@ func Run(scenes Scenes, cfg Config) error {
 	defer rl.CloseWindow() // de-initialization
 	defer rl.CloseAudioDevice()
 	// -----------------------CENTER WINDOW----------------------------
-	WindowWidth, WindowHeight := (rl.GetScreenWidth()*90)/100, (rl.GetScreenHeight()*90)/100
-	rl.SetWindowSize(WindowWidth, WindowHeight) //90% of screen
-	centerWindow()
+	if !ctx.IsWeb {
+		WindowWidth, WindowHeight := (rl.GetScreenWidth()*90)/100, (rl.GetScreenHeight()*90)/100
+		rl.SetWindowSize(WindowWidth, WindowHeight) //90% of screen
+		centerWindow()
+	}
 	// ----LOAD START SCENE----
 	ActiveScene.Load(ctx)
 	// ----MAIN LOOP----
-	for !rl.WindowShouldClose() {
+	UpdateAndDraw := func() error {
 		// ----FULL SCREEN ON F11----
 		if rl.IsKeyPressed(rl.KeyF11) {
 			rl.ToggleBorderlessWindowed()
@@ -71,7 +77,7 @@ func Run(scenes Scenes, cfg Config) error {
 				ActiveSceneId = nextSceneId
 				ActiveScene = nextScene
 				ActiveScene.Load(ctx)
-				continue
+				return nil
 			}
 			//-----ERROR HANDLING------
 			if !ok {
@@ -79,6 +85,16 @@ func Run(scenes Scenes, cfg Config) error {
 			} else if nextScene == nil {
 				return fmt.Errorf(`scene with id "%s" is nil, tried switching from scene "%s"`, nextSceneId, ActiveSceneId)
 			}
+		}
+		return nil
+	}
+	// for web
+	rl.SetMain(func() {
+		UpdateAndDraw()
+	})
+	for !rl.WindowShouldClose() {
+		if err := UpdateAndDraw(); err != nil {
+			return err
 		}
 	}
 	return nil
