@@ -4,7 +4,7 @@
 
 ### type **Config**
 ```go
-type Config struct{}
+type Config struct
 ```
 Struct used to pass configuration options to the [Run function](#func-run). eg: Window Size, config flags, etc...
 
@@ -18,7 +18,7 @@ type Config struct {
 ---
 ### type **Context**
 ```go
-type Context struct{}
+type Context struct
 ```
 Struct used to pass information to individual scenes. eg: Assets, Save Files, Camera, etc...
 
@@ -33,7 +33,7 @@ type Context struct {
 ---
 ### type **scene**
 ```go
-type scene interface{}
+type scene interface
 ```
 Interface that holds all of the common methods of all scenes. Every Scene must have the methods used in this interface.
 
