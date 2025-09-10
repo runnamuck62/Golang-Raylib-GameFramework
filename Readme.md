@@ -86,7 +86,7 @@ scenes/
     └── systems.go
 ```
 
-Scenes must be registered inside of [`scenes/register.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/register.go)
+Scenes must be registered inside of [`scenes/register.go`](scenes/RegisteredScenes.go)
 
 ```go
 // register all your scenes in here
@@ -122,10 +122,10 @@ func (scene *Scene) Unload(ctx engine.Context) (nextSceneID string) {
 
 ### Demo scenes
 
-* [`scenes/cube/cube.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/cube/cube.go)
+* [`scenes/cube/cube.go`](scenes/cube/cube.go)
   This scene features a spinning cube (wow!)
 
-* [`scenes/start/start.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/scenes/start/start.go)
+* [`scenes/start/start.go`](scenes/start/start.go)
   This is the main menu scene that is loaded first, press enter to select an option.
 
 ---
@@ -138,7 +138,7 @@ The main.go file isn't important, you can only change the window title here.
 
 #### [`engine/engine.go`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/engine/engine.go)
 
-The [`engine.Run`](https://github.com/BrownNPC/Golang-Raylib-GameFramework/blob/master/engine/engine.go#L33)
+The [`engine.Run`](engine/engine.go#L33)
 function initializes a window and centers it. It’s only 100 lines.
 Looking at the code comments is recommended. The engine.Context, which is supposed to be used by you to implement features, is defined here.
 
