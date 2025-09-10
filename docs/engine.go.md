@@ -1,13 +1,12 @@
-
 # Package engine
 
-# <u>Types</u>
+## Types
 
 ### type **Config**
 ```go
 type Config struct{}
 ```
-Struct used to pass configuration options to the engine.run function. eg: Window Size, config flags, etc...
+Struct used to pass configuration options to the [[#func **Run** | Run Function]] eg: Window Size, config flags, etc...
 
 **Example:**
 ```go
@@ -89,6 +88,5 @@ func centerWindow()
 Open's game window in the center of the screen
 
 ---
-
 
 
