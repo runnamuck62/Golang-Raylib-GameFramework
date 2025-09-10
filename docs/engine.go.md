@@ -78,7 +78,7 @@ func Run(scenes Scenes, cfg Config, Assets fs.FS) error {
 ```go
 func Run(scenes Scenes, cfg Config, Assets fs.FS) error 
 ```
-Main game loop called in Main.go. Handles loading and unloading scenes and assets, initializing configuration options, and game updating. 
+Main game loop called in Main.go. Handles loading and unloading scenes and assets, initializing configuration options, and game updating. Includes anonymous function **UpdateAndDraw** which specifically handles updating the state of the scene and drawing scene to screen.
 
 ---
 ### func centerWindow
