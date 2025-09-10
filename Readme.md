@@ -86,7 +86,7 @@ scenes/
     └── systems.go
 ```
 
-Scenes must be registered inside of [`scenes/register.go`](scenes/RegisteredScenes.go)
+Scenes must be registered inside of [`scenes/RegisteredScenes.go`](scenes/RegisteredScenes.go)
 
 ```go
 // register all your scenes in here
