@@ -6,7 +6,7 @@
 ```go
 type Config struct{}
 ```
-Struct used to pass configuration options to the [[#func **Run** | Run Function]] eg: Window Size, config flags, etc...
+Struct used to pass configuration options to the Run function. eg: Window Size, config flags, etc...
 
 **Example:**
 ```go
